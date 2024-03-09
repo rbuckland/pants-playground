@@ -27,12 +27,12 @@ python_distribution(
 **Usage**
 The `VERSION` file, is used as the version for the wheel.
 ```
-❯  pants package lib/my-simple-lib::                
+❯  pants package lib/my-simple-lib::
 08:05:46.75 [INFO] Wrote dist/my_simple_lib-4.3.1-py3-none-any.whl
 08:05:46.75 [INFO] Wrote dist/my_simple_lib-4.3.1.tar.gz
 ```
 
-The plugin, `tools/pants-plugins/pinchworms/src/pinchworms/packaging/{register.py, setup_kwargs.py} read the `VERSION` file and the `README.md`, into the wheel.
+The plugin, [tools/pants-plugins/pinchworms/src/pinchworms/packaging/setup_kwargs.py](tools/pants-plugins/pinchworms/src/pinchworms/packaging/setup_kwargs.py) reads the `VERSION` file and the `README.md`, into the wheel.
 
 ```
 ❯ unzip -p dist/my_simple_lib-4.3.1-py3-none-any.whl my_simple_lib-4.3.1.dist-info/METADATA
