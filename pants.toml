@@ -1,0 +1,39 @@
+[GLOBAL]
+pants_version = "2.19.1"
+
+pythonpath = ["%(buildroot)s/tools/pants-plugins/pinchworms/src"]
+
+backend_packages = [
+  'pants.backend.python',
+  'pants.backend.docker',
+  'pants.backend.shell',
+  'pinchworms.packaging',
+]
+
+concurrent = true
+
+[python]
+enable_resolves = true
+default_resolve = "python-default"
+interpreter_constraints = ['>=3.10,<3.12']
+
+[python.resolves]
+python-default = "lib/3rdparty/python/requirements-lock.json"
+
+[python-bootstrap]
+# Pants searches for interpreters both on the $PATH and in the `$(pyenv root)/versions` folder.
+# If you're using macOS, you may want to leave off the <PATH> entry to avoid using the
+# problematic system Pythons. See
+# https://www.pantsbuild.org/docs/python-interpreter-compatibility#changing-the-interpreter-search-path.
+search_path = ["<PYENV>", "<PATH>"]
+
+[generate-lockfiles]
+diff = true
+
+[anonymous-telemetry]
+enabled = true
+
+[docker]
+run_args = [
+  "--rm"
+]

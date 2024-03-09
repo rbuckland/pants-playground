@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "pinchworms"
+version = "0.1.0"
+description = "A pants plugin"
+authors = ["Ramon Buckland <ramon@thebuckland.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.9.*"
+# find it here - https://wheels.pantsbuild.org/simple/
+"pantsbuild.pants" = { url = "https://github.com/pantsbuild/pants/releases/download/release_2.19.1/pantsbuild.pants-2.19.1-cp39-cp39-manylinux2014_x86_64.whl" }
+
+
+[[tool.poetry.source]]
+name = "pants-pypi"
+url = "https://wheels.pantsbuild.org/simple/"
+priority = "default"
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "primary"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
