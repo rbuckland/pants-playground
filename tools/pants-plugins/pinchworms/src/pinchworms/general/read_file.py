@@ -41,8 +41,39 @@ class ReadFileContents(str):
         """
     )
     regex: Optional[str] = None
-    files: Optional[ContentOfMultipleSourcesField] = None
+    static: Optional[str] = None
+    sources: Optional[ContentOfMultipleSourcesField] = None
 
-    def __new__(cls, value: str, regex: Optional[str] = None, files: Optional[ContentOfMultipleSourcesField] = None):
-        return str.__new__(cls, value)
+    def __new__(cls, value: str = "dummy-value-from-new", **kwargs):
+        print(f"new() {value=} {kwargs=}", end="")
+        return super().__new__(cls, value)
 
+    def __init__(self, value: str = "dummy-value-from-init", **kwargs):
+        print(f"init {value=} {kwargs=}", end="")
+        super().__init__()
+        # self.regex = kwarg.get("regex")
+        # self.static = kwarg.get("static")
+        # self.sources = kwarg.get("sources")
+
+    def __hash__(self):
+        return super().__hash__()
+
+
+@dataclass(frozen=True)
+class ReadFileContentsRequest:
+    target: Target
+
+    @classmethod
+    def is_applicable(cls, _: Target) -> bool:
+       return True
+
+
+@rule
+async def do_read_the_file(request: ReadFileContentsRequest) -> str:
+
+    return ReadFileContents("winner")
+
+def rules():
+    return (
+        do_read_the_file,
+    )

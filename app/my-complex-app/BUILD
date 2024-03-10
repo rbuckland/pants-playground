@@ -13,6 +13,6 @@ docker_image(
   image_tags=[
        "abc",
        "123",
-       read_file_contents("xxxx"),
+       read_file_contents(sources=[":version"]),
   ]
 )

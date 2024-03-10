@@ -7,5 +7,5 @@ from pinchworms.general.read_file import ReadFileContents
 def build_file_aliases():
     return BuildFileAliases(objects={ReadFileContents.alias: ReadFileContents})
 
-# def rules():
-#     return [*pinchworms.general.read_file.rules()]
+def rules():
+    return [*pinchworms.general.read_file.rules()]
