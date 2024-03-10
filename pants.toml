@@ -7,7 +7,9 @@ backend_packages = [
   'pants.backend.python',
   'pants.backend.docker',
   'pants.backend.shell',
+  'pants.backend.plugin_development',
   'pinchworms.packaging',
+  'pinchworms.general',
 ]
 
 concurrent = true
