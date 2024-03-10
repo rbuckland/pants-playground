@@ -29,6 +29,7 @@ class ContentOfMultipleSourcesField(MultipleSourcesField):
         """
     )
 
+
 @dataclass(frozen=True)
 class ReadFileContents(str):
     """read_file_contents() string provider"""
@@ -42,6 +43,6 @@ class ReadFileContents(str):
     regex: Optional[str] = None
     files: Optional[ContentOfMultipleSourcesField] = None
 
-    def __new__(cls, value: str = "ccc", regex: Optional[str] = None, files: Optional[ContentOfMultipleSourcesField] = None):
+    def __new__(cls, value: str, regex: Optional[str] = None, files: Optional[ContentOfMultipleSourcesField] = None):
         return str.__new__(cls, value)
 
