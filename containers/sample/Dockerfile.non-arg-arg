@@ -1,0 +1,5 @@
+ARG BASE_IMAGE=containers/common:images-python@parametrize=py311deb
+FROM $BASE_IMAGE
+
+RUN apt update && apt install -y \
+    curl

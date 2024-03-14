@@ -1,0 +1,30 @@
+ARG BASE_IMAGE
+ARG DIST_TYPE
+
+#
+# Build the static certs
+#
+FROM $DIST_TYPE as certs
+ARG DIST_TYPE
+# (not in this example) .. copy internal certs into container
+# COPY common/pki/*.crt /usr/local/share/ca-certificates/
+
+RUN case "$DIST_TYPE" in \
+      alpine*) apk update && apk add --no-cache ca-certificates ;; \
+      debian*) apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y ca-certificates ;; \
+    esac && \
+    update-ca-certificates
+
+#
+# now we can copy the certificates to the final image
+#
+FROM $BASE_IMAGE
+
+COPY --from=certs /etc/ssl/certs /etc/ssl/certs
+COPY --from=certs /usr/local/share/ca-certificates/ /usr/local/share/ca-certificates/
+COPY --from=certs /usr/share/ca-certificates/ /usr/share/ca-certificates/
+
+# Install certifi and link it to the system certificates (unlink the provided certifi one)
+RUN /usr/local/bin/pip install certifi && \
+    rm $(python -m certifi) && \
+    ln -s /etc/ssl/certs/ca-certificates.crt $(python -m certifi)
